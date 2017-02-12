@@ -1,0 +1,13 @@
+{"SalesSupervisorSystem": [
+  {
+    "userCode": "2534",
+    "userRegion": "SPO 03",
+    "actingCode": 1,
+    "lineCode": "SUPERVISOR",
+    "situation": 1,
+    "salesSupervisorCity": "PRESIDENTE PRUDENTE",
+    "salesSupervisorState": "SP",
+    "lastOrder": "2534-0250",
+    "active": true
+  }
+]}

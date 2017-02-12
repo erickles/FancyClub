@@ -1,0 +1,13 @@
+{"SalesPromoterSystem": [
+  {
+    "userCode": "3658",
+    "userRegion": "SC 02",
+    "actingCode": 1,
+    "lineCode": "PROMOTOR",
+    "situation": 1,
+    "salesPromoterCity": "CANOINHAS",
+    "salesPromoterState": "SC",
+    "lastOrder": "3658-3157",
+    "active": true
+  }
+]}

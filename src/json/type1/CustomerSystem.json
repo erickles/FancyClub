@@ -1,0 +1,31 @@
+{"Customer": {
+  "CustomerSystem": [
+    {
+      "userCode": "153999",
+      "saleChannel": 10,
+      "icmsPayer": true,
+      "customerGroup": 2,
+      "cnaeCode": 0,
+      "microRegion": "SC0101",
+      "state": "SC",
+      "city": "BARRA BONITA",
+      "phone": "(49)3622-0204",
+      "mobile": "(49)98422-9190",
+      "active": true,
+      "activityBusiness": "RURAL",
+      "matrixCode": "153999",
+      "DeliveryPropertySystem": [
+        {
+          "userCode": "153999",
+          "deliveryCode": "Padrão",
+          "state": "SC",
+          "city": "BARRA BONITA",
+          "propertyName": "MOACIR PIROCA",
+          "propertyAdress": "LINHA SAO PEDRO, S\/N",
+          "propertyScript": "ESTRADA GERAL QUE VAI A BARRA BONITA  LINHA SAO PEDRO S\/N, INTERIOR DE BARRA BONITA\/SC (49)8423-7914  (49)84229190",
+          "propertyAlternativeScript": "ANTES DE CHEGAR EM SÃO MIGUEL O MOTORISTA DEVE LIGAR PARA O ERC ANTONIO SPADA, PARA ALINHAR A DESCARGA. "
+        }
+      ]
+    }
+  ]
+}}

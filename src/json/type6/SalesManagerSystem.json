@@ -1,0 +1,13 @@
+{"SalesManagerSystem": [
+  {
+    "userCode": "4163",
+    "userRegion": "SP 01",
+    "actingCode": 1,
+    "lineCode": "GERENTE REGIONAL",
+    "situation": 1,
+    "salesManagerCity": "BELO HORIZONTE",
+    "salesManagerState": "MG",
+    "lastOrder": "",
+    "active": true
+  }
+]}
