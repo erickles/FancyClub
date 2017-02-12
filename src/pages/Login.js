@@ -21,14 +21,15 @@ class Login extends Component {
 
         return (
             <MuiThemeProvider>
-                <div className="container-fluid">
+                <div>
 
-                    <Drawer open={this.state.open} docked={true} open={this.state.open} onRequestChange={(open) => this.setState({ open })}>
+                    <Drawer open={this.state.open} docked={false} onRequestChange={(open) => this.setState({ open })}>
                         <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
                         <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
                     </Drawer>
                     <AppBar title="Fancy Club" onLeftIconButtonTouchTap={this.handleTouchTap} iconClassNameRight="muidocs-icon-navigation-expand-more" />
-                    <TextField hintText="Password Field" floatingLabelText="Password" type="password" />
+                    <TextField id="userCode" hintText="Informe seu usuário" floatingLabelText="Usuário" type="text" fullWidth={true}/>
+                    <TextField id="userPassword" hintText="Informe sua senha" floatingLabelText="Senha" type="password" fullWidth={true}/>
                 </div>
             </MuiThemeProvider>
         );
