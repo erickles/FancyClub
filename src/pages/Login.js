@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-//import 'bootstrap/dist/css/bootstrap.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 import TextField from 'material-ui/TextField'
+import FontIcon from 'material-ui/FontIcon'
+import logo from '../images/club_m.jpg'
+import EmailLogin from '../components/EmailLogin'
 
 class Login extends Component {
 
@@ -19,6 +21,23 @@ class Login extends Component {
 
     render() {
 
+        const styles = {
+            button: {
+                margin: 15
+
+            },
+            exampleImageInput: {
+                cursor: 'pointer',
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                width: '100%',
+                opacity: 0,
+            },
+        };
+
         return (
             <MuiThemeProvider>
                 <div>
@@ -27,9 +46,36 @@ class Login extends Component {
                         <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
                         <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
                     </Drawer>
+
                     <AppBar title="Fancy Club" onLeftIconButtonTouchTap={this.handleTouchTap} iconClassNameRight="muidocs-icon-navigation-expand-more" />
-                    <TextField id="userCode" hintText="Informe seu usuário" floatingLabelText="Usuário" type="text" fullWidth={true}/>
-                    <TextField id="userPassword" hintText="Informe sua senha" floatingLabelText="Senha" type="password" fullWidth={true}/>
+
+                    <center>
+                        <img src={logo} className="img-responsive" alt="Cinque Terre" />
+                    </center>
+
+                    <RaisedButton                        
+                        target="_blank"
+                        fullWidth={true}
+                        label="Entre com o Facebook"
+                        style={styles.button}
+                        icon={<FontIcon className="muidocs-icon-custom-github" />} />
+
+                    <RaisedButton                        
+                        target="_blank"
+                        fullWidth={true}
+                        label="Entre com seu e-mail"
+                        style={styles.button}
+                        icon={<FontIcon className="muidocs-icon-custom-github" />} />
+
+                    <EmailLogin/>
+
+                    <RaisedButton                        
+                        target="_blank"
+                        fullWidth={true}
+                        label="Ainda não fez o seu cadastro? Faça agora!"
+                        style={styles.button}
+                        icon={<FontIcon className="muidocs-icon-custom-github" />} />
+
                 </div>
             </MuiThemeProvider>
         );
