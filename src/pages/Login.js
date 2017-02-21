@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import RaisedButton from 'material-ui/RaisedButton'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
-import TextField from 'material-ui/TextField'
-import FontIcon from 'material-ui/FontIcon'
 import logo from '../images/club_m.jpg'
-import EmailLogin from '../components/EmailLogin'
+import LoginContent from '../components/LoginContent'
+import store from '../stores/LoginScreenStore'
+import { observer } from 'mobx-react'
 
+@observer
 class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { open: false };
+        this.state = { 
+            open: false
+        };
     }
 
     handleTouchTap = () => this.setState({ open: !this.state.open });
@@ -38,7 +40,10 @@ class Login extends Component {
             },
         };
 
+        const { emailLogging } = store
+
         return (
+
             <MuiThemeProvider>
                 <div>
 
@@ -53,28 +58,7 @@ class Login extends Component {
                         <img src={logo} className="img-responsive" alt="Cinque Terre" />
                     </center>
 
-                    <RaisedButton                        
-                        target="_blank"
-                        fullWidth={true}
-                        label="Entre com o Facebook"
-                        style={styles.button}
-                        icon={<FontIcon className="muidocs-icon-custom-github" />} />
-
-                    <RaisedButton                        
-                        target="_blank"
-                        fullWidth={true}
-                        label="Entre com seu e-mail"
-                        style={styles.button}
-                        icon={<FontIcon className="muidocs-icon-custom-github" />} />
-
-                    <EmailLogin/>
-
-                    <RaisedButton                        
-                        target="_blank"
-                        fullWidth={true}
-                        label="Ainda não fez o seu cadastro? Faça agora!"
-                        style={styles.button}
-                        icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                    <LoginContent/>
 
                 </div>
             </MuiThemeProvider>
