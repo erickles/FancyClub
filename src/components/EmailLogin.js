@@ -17,6 +17,10 @@ class EmailLogin extends Component{
         store.toogleSigningUp()        
     }
 
+    fetchLogin(){
+        store.toogleLogged();
+    }
+
     render(){
 
         const styles = {
@@ -48,6 +52,7 @@ class EmailLogin extends Component{
                         fullWidth={true}
                         label="Entrar"
                         style={styles.button}
+                        onClick={this.fetchLogin.bind(this)}
                         icon={<FontIcon className="muidocs-icon-custom-github" />} />
 
                 <RaisedButton                        

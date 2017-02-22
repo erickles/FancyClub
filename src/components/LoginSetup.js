@@ -17,8 +17,12 @@ class LoginSetup extends Component {
         store.resetScreen()
     }
 
-    toogleSigningUp(){
-        store.toogleSigningUp()        
+    toogleSigningUp() {
+        store.toogleSigningUp()
+    }
+
+    fetchLogin() {
+        store.toogleLogged();
     }
 
     render() {
@@ -49,6 +53,7 @@ class LoginSetup extends Component {
                     fullWidth={true}
                     label="Entre com o Facebook"
                     style={styles.button}
+                    onClick={this.fetchLogin.bind(this)}
                     icon={<FontIcon className="muidocs-icon-custom-github" />} />
 
                 <RaisedButton

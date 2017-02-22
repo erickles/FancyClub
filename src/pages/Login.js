@@ -21,6 +21,10 @@ class Login extends Component {
     handleTouchTap = () => this.setState({ open: !this.state.open });
     handleClose = () => this.setState({ open: false });
 
+    fetchLogin(){
+        store.toogleLogged();
+    }
+
     render() {
 
         const styles = {
@@ -40,24 +44,28 @@ class Login extends Component {
             },
         };
 
-        const { emailLogging } = store
+        const { emailLogging, logged } = store
 
         return (
 
             <MuiThemeProvider>
                 <div>
-
+                    
+                    {logged ?
                     <Drawer open={this.state.open} docked={false} onRequestChange={(open) => this.setState({ open })}>
                         <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
                         <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
                     </Drawer>
+                    : ''}
 
+                    {logged ?
                     <AppBar title="Fancy Club" onLeftIconButtonTouchTap={this.handleTouchTap} iconClassNameRight="muidocs-icon-navigation-expand-more" />
-
+                    : ''}
+                    
                     <center>
                         <img src={logo} className="img-responsive" alt="Cinque Terre" />
                     </center>
-
+                    
                     <LoginContent/>
 
                 </div>

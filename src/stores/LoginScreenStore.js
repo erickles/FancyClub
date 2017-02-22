@@ -5,6 +5,11 @@ export class LoginScreenStore {
     @observable emailLogging
     @observable signingUp
     @observable emailSigningUp
+    @observable logged
+
+    toogleLogged(){
+        this.logged = !this.logged        
+    }
 
     toogleEmailLogging(){
         this.emailLogging = true
