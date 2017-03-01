@@ -15,7 +15,8 @@ class EmailLogin extends Component {
     // Dialog
     state = {
         open: false,
-        message: ""
+        message: "",
+        title: ""
     };
 
     handleOpen = () => {
@@ -43,12 +44,28 @@ class EmailLogin extends Component {
         store.handlePasswordInput(e.target.value)
     }
 
+    handleDialogMessage(errorCode, erroMessage) {
+
+        switch (errorCode) {
+
+            case 'auth/user-not-found':
+                this.setState({ title: 'E-mail não cadastrado', message: 'Você ainda não tem cadastro com este e-mail, faça seu cadastro!' });
+                break;
+
+            default:
+                this.setState({ title: errorCode, message: erroMessage});
+                break;
+
+        }
+
+    }
+
     fetchLogin() {
 
         const {emailInput, passwordInput} = store
 
-        const openDialog = (errorMessage) => {
-            this.setState({ message: errorMessage });
+        const openDialog = (errorCode, errorMessage) => {
+            this.handleDialogMessage(errorCode, errorMessage)
             this.handleOpen();
         }
 
@@ -56,21 +73,21 @@ class EmailLogin extends Component {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-                    
-            openDialog(errorMessage)
-        });        
+
+            openDialog(errorCode, errorMessage)
+        });
 
         firebase.auth().onAuthStateChanged(function (user) {
 
             if (user) {
                 if (user.emailVerified) {
                     store.toogleLogged();
-                } else {
-                    console.log('E-mail ainda não verificado! Verifique seu e-mail!')
+                } else {                    
+                    openDialog('E-mail ainda não verificado!', 'Verifique seu e-mail!')
                 }
             } else {
                 // No user is signed in.
-                
+
             }
         });
 
@@ -121,14 +138,14 @@ class EmailLogin extends Component {
                         <RaisedButton
                             target="_blank"
                             fullWidth={true}
-                            label="Ainda não possui uma conta? Crie a sua"
+                            label="Ainda não tem cadastro? Faça agora!"
                             onClick={this.toogleSigningUp.bind(this)}
                             icon={<FontIcon className="muidocs-icon-custom-github" />} />
                     </div>
                 </div>
 
                 <Dialog
-                    title="Dialog With Actions"
+                    title={this.state.title}
                     actions={actions}
                     modal={false}
                     open={this.state.open}
