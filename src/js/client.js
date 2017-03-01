@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import 'bootstrap/dist/css/bootstrap.css'
+import '../css/app.css'
 import firebase from 'firebase'
 
 const app = document.getElementById('app');

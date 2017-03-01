@@ -9,15 +9,15 @@ import { observer } from 'mobx-react'
 @observer
 class SignupSetup extends Component {
 
-    toogleSigningUp(){
-        store.toogleSigningUp()        
+    toogleSigningUp() {
+        store.toogleSigningUp()
     }
 
-    resetScreen(){
+    resetScreen() {
         store.resetScreen()
     }
 
-    toogleEmailSigningUp(){
+    toogleEmailSigningUp() {
         store.toogleEmailSigningUp()
     }
 
@@ -25,7 +25,7 @@ class SignupSetup extends Component {
 
         const styles = {
             button: {
-                margin: 15
+                margin: 0
 
             },
             exampleImageInput: {
@@ -44,28 +44,37 @@ class SignupSetup extends Component {
 
             <div>
 
-                <RaisedButton
-                    target="_blank"
-                    fullWidth={true}
-                    label="Cadastre-se com o Facebook"
-                    style={styles.button}
-                    icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                <div className="spacing-container">
+                    <div className="button-container">
+                        <RaisedButton
+                            target="_blank"
+                            fullWidth={true}
+                            label="Cadastre-se com o Facebook"                            
+                            icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                    </div>
+                </div>
 
-                <RaisedButton
-                    target="_blank"
-                    fullWidth={true}
-                    label="Cadastre-se com seu e-mail"
-                    style={styles.button}
-                    onClick={this.toogleEmailSigningUp.bind(this)}
-                    icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                <div className="spacing-container">
+                    <div className="button-container">
+                        <RaisedButton
+                            target="_blank"
+                            fullWidth={true}
+                            label="Cadastre-se com seu e-mail"                            
+                            onClick={this.toogleEmailSigningUp.bind(this)}
+                            icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                    </div>
+                </div>
 
-                <RaisedButton
-                    target="_blank"
-                    fullWidth={true}
-                    label="Já tem o seu cadastro? Faça seu login"
-                    onClick={this.resetScreen.bind(this)}
-                    style={styles.button}
-                    icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                <div className="spacing-container">
+                    <div className="button-container">
+                        <RaisedButton
+                            target="_blank"
+                            fullWidth={true}
+                            label="Já tem o seu cadastro? Faça seu login"
+                            onClick={this.resetScreen.bind(this)}                            
+                            icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                    </div>
+                </div>
 
             </div>
 

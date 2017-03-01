@@ -6,8 +6,8 @@ export class LoginScreenStore {
     @observable signingUp
     @observable emailSigningUp
     @observable logged
-    @observable emailInput
-    @observable passwordInput
+    @observable emailInput = ""
+    @observable passwordInput = ""
 
     handleEmailInput(value){
         this.emailInput = value

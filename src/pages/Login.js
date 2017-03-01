@@ -13,7 +13,7 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             open: false
         };
     }
@@ -21,7 +21,7 @@ class Login extends Component {
     handleTouchTap = () => this.setState({ open: !this.state.open });
     handleClose = () => this.setState({ open: false });
 
-    fetchLogin(){
+    fetchLogin() {
         store.toogleLogged();
     }
 
@@ -50,23 +50,29 @@ class Login extends Component {
 
             <MuiThemeProvider>
                 <div>
-                    
-                    {logged ?
-                    <Drawer open={this.state.open} docked={false} onRequestChange={(open) => this.setState({ open })}>
-                        <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-                        <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
-                    </Drawer>
-                    : ''}
 
-                    {logged ?
-                    <AppBar title="Fancy Club" onLeftIconButtonTouchTap={this.handleTouchTap} iconClassNameRight="muidocs-icon-navigation-expand-more" />
-                    : ''}
-                    
-                    <center>
-                        <img src={logo} className="img-responsive" alt="Cinque Terre" />
-                    </center>
-                    
-                    <LoginContent/>
+                    <div className="top-container">
+
+                        {logged ?
+                            <Drawer open={this.state.open} docked={false} onRequestChange={(open) => this.setState({ open })}>
+                                <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
+                                <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+                            </Drawer>
+                            : ''}
+
+                        {logged ?
+                            <AppBar title="Fancy Club" onLeftIconButtonTouchTap={this.handleTouchTap} iconClassNameRight="muidocs-icon-navigation-expand-more" />
+                            : ''}
+
+                        <center>
+                            <img src={logo} className="img-responsive" alt="Cinque Terre" />
+                        </center>
+
+                    </div>
+
+                    <div className="bottom-container">
+                        <LoginContent />
+                    </div>
 
                 </div>
             </MuiThemeProvider>

@@ -2,13 +2,30 @@ import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon'
 import store from '../stores/LoginScreenStore'
 import { observer } from 'mobx-react'
 import firebase from 'firebase'
+import Dialog from 'material-ui/Dialog';
 
 @observer
 class EmailLogin extends Component {
+
+    // Dialog
+    state = {
+        open: false,
+        message: ""
+    };
+
+    handleOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+    // Dialog
 
     toogleEmailLogging() {
         store.toogleEmailLogging()
@@ -30,24 +47,30 @@ class EmailLogin extends Component {
 
         const {emailInput, passwordInput} = store
 
+        const openDialog = (errorMessage) => {
+            this.setState({ message: errorMessage });
+            this.handleOpen();
+        }
+
         firebase.auth().signInWithEmailAndPassword(emailInput, passwordInput).catch(function (error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            console.log(errorCode)
-            console.log(errorMessage)            
-        });
+                    
+            openDialog(errorMessage)
+        });        
 
         firebase.auth().onAuthStateChanged(function (user) {
+
             if (user) {
-                if(user.emailVerified){
+                if (user.emailVerified) {
                     store.toogleLogged();
-                }else{
+                } else {
                     console.log('E-mail ainda não verificado! Verifique seu e-mail!')
-                }                
+                }
             } else {
                 // No user is signed in.
-                console.log('Usuario não logado!')
+                
             }
         });
 
@@ -55,22 +78,14 @@ class EmailLogin extends Component {
 
     render() {
 
-        const styles = {
-            button: {
-                margin: 15
-
-            },
-            exampleImageInput: {
-                cursor: 'pointer',
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                left: 0,
-                width: '100%',
-                opacity: 0,
-            },
-        };
+        const actions = [
+            <FlatButton
+                label="OK"
+                primary={true}
+                keyboardFocused={true}
+                onTouchTap={this.handleClose}
+            />,
+        ];
 
         const {emailInput, passwordInput} = store
 
@@ -78,24 +93,48 @@ class EmailLogin extends Component {
 
             <div>
 
-                <TextField id="userEmail" value={emailInput} hintText="Informe seu e-mail" onChange={this.handleEmailInput.bind(this)} floatingLabelText="E-mail" type="text" fullWidth={true} />
-                <TextField id="userPassword" value={passwordInput} hintText="Informe sua senha" onChange={this.handlePasswordInput.bind(this)} floatingLabelText="Senha" type="password" fullWidth={true} />
+                <div className="spacing-container">
+                    <div className="button-container">
+                        <TextField id="userEmail" value={emailInput} hintText="Informe seu e-mail" onChange={this.handleEmailInput.bind(this)} floatingLabelText="E-mail" type="text" fullWidth={true} />
+                    </div>
+                </div>
 
-                <RaisedButton
-                    target="_blank"
-                    fullWidth={true}
-                    label="Entrar"
-                    style={styles.button}
-                    onClick={this.fetchLogin.bind(this)}
-                    icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                <div className="spacing-container">
+                    <div className="button-container">
+                        <TextField id="userPassword" value={passwordInput} hintText="Informe sua senha" onChange={this.handlePasswordInput.bind(this)} floatingLabelText="Senha" type="password" fullWidth={true} />
+                    </div>
+                </div>
 
-                <RaisedButton
-                    target="_blank"
-                    fullWidth={true}
-                    label="Ainda não possui uma conta? Crie a sua"
-                    onClick={this.toogleSigningUp.bind(this)}
-                    style={styles.button}
-                    icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                <div className="spacing-container">
+                    <div className="button-container">
+                        <RaisedButton
+                            target="_blank"
+                            fullWidth={true}
+                            label="Entrar"
+                            onClick={this.fetchLogin.bind(this)}
+                            icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                    </div>
+                </div>
+
+                <div className="spacing-container">
+                    <div className="button-container">
+                        <RaisedButton
+                            target="_blank"
+                            fullWidth={true}
+                            label="Ainda não possui uma conta? Crie a sua"
+                            onClick={this.toogleSigningUp.bind(this)}
+                            icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                    </div>
+                </div>
+
+                <Dialog
+                    title="Dialog With Actions"
+                    actions={actions}
+                    modal={false}
+                    open={this.state.open}
+                    onRequestClose={this.handleClose}>
+                    {this.state.message}
+                </Dialog>
 
             </div>
 

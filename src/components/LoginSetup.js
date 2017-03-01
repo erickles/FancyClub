@@ -29,10 +29,9 @@ class LoginSetup extends Component {
 
         const styles = {
             button: {
-                margin: 15
-
+                margin: 0
             },
-            exampleImageInput: {
+            imageInput: {
                 cursor: 'pointer',
                 position: 'absolute',
                 top: 0,
@@ -41,36 +40,39 @@ class LoginSetup extends Component {
                 left: 0,
                 width: '100%',
                 opacity: 0,
-            },
+            }
         };
 
         return (
 
             <div>
+                <div>
+                    <div className="spacing-container">
+                        <div className="button-container">
+                            <RaisedButton
+                                className="fancy-button"
+                                target="_blank"
+                                fullWidth={true}
+                                label="Entre com o Facebook"
+                                style={styles.button}
+                                onClick={this.fetchLogin.bind(this)}
+                                icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                        </div>
+                    </div>
 
-                <RaisedButton
-                    target="_blank"
-                    fullWidth={true}
-                    label="Entre com o Facebook"
-                    style={styles.button}
-                    onClick={this.fetchLogin.bind(this)}
-                    icon={<FontIcon className="muidocs-icon-custom-github" />} />
-
-                <RaisedButton
-                    target="_blank"
-                    fullWidth={true}
-                    label="Entre com seu e-mail"
-                    style={styles.button}
-                    onClick={this.toogleEmailLogging.bind(this)}
-                    icon={<FontIcon className="muidocs-icon-custom-github" />} />
-
-                <RaisedButton
-                    target="_blank"
-                    fullWidth={true}
-                    label="Ainda não fez o seu cadastro? Faça agora!"
-                    style={styles.button}
-                    onClick={this.toogleSigningUp.bind(this)}
-                    icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                    <div className="spacing-container">
+                        <div className="button-container">
+                            <RaisedButton
+                                className="fancy-button"
+                                target="_blank"
+                                fullWidth={true}
+                                label="Entre com seu e-mail"
+                                style={styles.button}
+                                onClick={this.toogleEmailLogging.bind(this)}
+                                icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                        </div>
+                    </div>
+                </div>                          
 
             </div>
 
