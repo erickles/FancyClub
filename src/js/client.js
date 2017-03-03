@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
+import EmailSignup from '../components/EmailSignup'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import 'bootstrap/dist/css/bootstrap.css'
 import '../css/app.css'
@@ -27,6 +28,7 @@ ReactDOM.render(
     <Router history={hashHistory}>
         <Route path="/" component={Login}>
             <IndexRoute component={Home}></IndexRoute>
+            <Route path="emailSignup" component={EmailSignup}></Route>
         </Route>
     </Router>,
     app);

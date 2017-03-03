@@ -15,11 +15,11 @@ module.exports = {
         test: /\.css$/,
         loader: 'style!css!'
       },
-      { 
-        test: /\.(ttf|eot|svg|jpg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" 
-      },      
-      { 
-        test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' 
+      {
+        test: /\.(ttf|eot|svg|jpg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'
       },
       {
         test: /\.jsx?$/,
@@ -42,4 +42,10 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
   ],
+  devServer: {
+    contentBase: path.join(__dirname, "src"),
+    inline: true,
+    compress: true,
+    port: 9000
+  }
 };

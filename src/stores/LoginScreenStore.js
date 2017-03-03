@@ -8,38 +8,53 @@ export class LoginScreenStore {
     @observable logged
     @observable emailInput = ""
     @observable passwordInput = ""
+    @observable repeatPasswordInput = ""
+    @observable nameInput = ""
+    @observable sureNameInput = ""
 
-    handleEmailInput(value){
+    handleEmailInput(value) {
         this.emailInput = value
     }
 
-    handlePasswordInput(value){
+    handlePasswordInput(value) {
         this.passwordInput = value
     }
 
-    toogleLogged(){
-        this.logged = !this.logged        
+    handleNameInput(value) {
+        this.nameInput = value
     }
 
-    toogleEmailLogging(){
+    handleSureNameInput(value) {
+        this.sureNameInput = value
+    }
+
+    handleRepeatPasswordInput(value) {
+        this.repeatPasswordInput = value
+    }
+
+    toogleLogged() {
+        this.logged = !this.logged
+    }
+
+    toogleEmailLogging() {
         this.emailLogging = true
         this.signingUp = false
         this.emailSigningUp = false
     }
 
-    toogleSigningUp(){
+    toogleSigningUp() {
         this.emailLogging = false
         this.signingUp = true
         this.emailSigningUp = false
     }
 
-    toogleEmailSigningUp(){
+    toogleEmailSigningUp() {
         this.emailLogging = false
         this.signingUp = false
         this.emailSigningUp = true
     }
 
-    resetScreen(){
+    resetScreen() {
         this.emailLogging = false
         this.signingUp = false
         this.emailSigningUp = false

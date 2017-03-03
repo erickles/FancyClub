@@ -8,6 +8,7 @@ import store from '../stores/LoginScreenStore'
 import { observer } from 'mobx-react'
 import firebase from 'firebase'
 import Dialog from 'material-ui/Dialog';
+import { Link } from 'react-router';
 
 @observer
 class EmailLogin extends Component {
@@ -52,6 +53,10 @@ class EmailLogin extends Component {
                 this.setState({ title: 'E-mail não cadastrado', message: 'Você ainda não tem cadastro com este e-mail, faça seu cadastro!' });
                 break;
 
+                 case 'auth/invalid-email':
+                 this.setState({ title: 'E-mail inválido', message: 'Informe um e-mail válido!' });
+                 break;
+//auth/wrong-password
             default:
                 this.setState({ title: errorCode, message: erroMessage});
                 break;
@@ -135,12 +140,13 @@ class EmailLogin extends Component {
 
                 <div className="spacing-container">
                     <div className="button-container">
+                        <Link type="button" to="EmailSignup">
                         <RaisedButton
                             target="_blank"
                             fullWidth={true}
-                            label="Ainda não tem cadastro? Faça agora!"
-                            onClick={this.toogleSigningUp.bind(this)}
+                            label="Ainda não tem cadastro? Faça agora!"                            
                             icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                        </Link>
                     </div>
                 </div>
 
