@@ -5,24 +5,17 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FontIcon from 'material-ui/FontIcon'
 import store from '../stores/LoginScreenStore'
 import { observer } from 'mobx-react'
+import { Link } from 'react-router';
 
 @observer
 class LoginSetup extends Component {
 
-    toogleEmailLogging() {
-        store.toogleEmailLogging()
-    }
-
-    resetScreen() {
-        store.resetScreen()
-    }
-
-    toogleSigningUp() {
-        store.toogleSigningUp()
-    }
-
     fetchLogin() {
         store.toogleLogged();
+    }
+
+    componentDidMount(){
+        store.setShowLogo(true)
     }
 
     render() {
@@ -41,7 +34,7 @@ class LoginSetup extends Component {
                 width: '100%',
                 opacity: 0,
             }
-        };
+        };        
 
         return (
 
@@ -53,7 +46,7 @@ class LoginSetup extends Component {
                                 className="fancy-button"
                                 target="_blank"
                                 fullWidth={true}
-                                label="Entre com o Facebook"
+                                label="Entre com seu Facebook"
                                 style={styles.button}
                                 onClick={this.fetchLogin.bind(this)}
                                 icon={<FontIcon className="muidocs-icon-custom-github" />} />
@@ -62,17 +55,18 @@ class LoginSetup extends Component {
 
                     <div className="spacing-container">
                         <div className="button-container">
-                            <RaisedButton
-                                className="fancy-button"
-                                target="_blank"
-                                fullWidth={true}
-                                label="Entre com seu e-mail"
-                                style={styles.button}
-                                onClick={this.toogleEmailLogging.bind(this)}
-                                icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                            <Link type="button" to="EmailLogin">
+                                <RaisedButton
+                                    className="fancy-button"
+                                    target="_blank"
+                                    fullWidth={true}
+                                    label="Entre com seu e-mail"
+                                    style={styles.button}                                    
+                                    icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                            </Link>
                         </div>
                     </div>
-                </div>                          
+                </div>
 
             </div>
 

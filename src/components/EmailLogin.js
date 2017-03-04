@@ -98,6 +98,10 @@ class EmailLogin extends Component {
 
     }
 
+    componentDidMount(){
+        store.setShowLogo(true)
+    }
+
     render() {
 
         const actions = [
@@ -140,7 +144,7 @@ class EmailLogin extends Component {
 
                 <div className="spacing-container">
                     <div className="button-container">
-                        <Link type="button" to="EmailSignup">
+                        <Link type="button" to="emailSignup">
                         <RaisedButton
                             target="_blank"
                             fullWidth={true}

@@ -9,61 +9,7 @@ import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import FlatButton from 'material-ui/FlatButton';
 
 @observer
-class EmailSignup extends Component {
-
-    state = {
-        finished: false,
-        stepIndex: 0,
-    };
-
-    handleNext = () => {
-        const { stepIndex } = this.state;
-        this.setState({
-            stepIndex: stepIndex + 1,
-            finished: stepIndex >= 2,
-        });
-    };
-
-    handlePrev = () => {
-        const { stepIndex } = this.state;
-        if (stepIndex > 0) {
-            this.setState({ stepIndex: stepIndex - 1 });
-        }
-    };
-
-    toogleEmailLogging() {
-        store.toogleEmailLogging()
-    }
-
-    toogleSigningUp() {
-        store.toogleSigningUp()
-    }
-
-    renderStepActions(step) {
-        const { stepIndex } = this.state;
-
-        return (
-            <div style={{ margin: '12px 0' }}>
-                <RaisedButton
-                    label={stepIndex === 2 ? 'Terminar' : 'Próximo'}
-                    disableTouchRipple={true}
-                    disableFocusRipple={true}
-                    primary={true}
-                    onTouchTap={this.handleNext}
-                    style={{ marginRight: 12 }}
-                />
-                {step > 0 && (
-                    <FlatButton
-                        label="Voltar"
-                        disabled={stepIndex === 0}
-                        disableTouchRipple={true}
-                        disableFocusRipple={true}
-                        onTouchTap={this.handlePrev}
-                    />
-                )}
-            </div>
-        );
-    }
+class EmailSignup extends Component {        
 
     handleEmailInput(e) {
         store.handleEmailInput(e.target.value)
@@ -85,9 +31,12 @@ class EmailSignup extends Component {
         store.handleRepeatPasswordInput(e.target.value)
     }
 
-    render() {
+    componentDidMount(){
+        store.setShowLogo(false)
+    }
 
-        const { finished, stepIndex } = this.state;
+    render() {
+        
         const { emailInput, passwordInput, repeatPasswordInput, nameInput, sureNameInput } = store
 
         return (

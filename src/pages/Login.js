@@ -4,7 +4,7 @@ import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 import logo from '../images/club_m.jpg'
-import LoginContent from '../components/LoginContent'
+
 import store from '../stores/LoginScreenStore'
 import { observer } from 'mobx-react'
 
@@ -44,7 +44,7 @@ class Login extends Component {
             },
         };
 
-        const { emailLogging, logged } = store
+        const { emailLogging, logged, showingLogo } = store
 
         return (
 
@@ -64,14 +64,16 @@ class Login extends Component {
                             <AppBar title="Fancy Club" onLeftIconButtonTouchTap={this.handleTouchTap} iconClassNameRight="muidocs-icon-navigation-expand-more" />
                             : ''}
 
-                        <center>
-                            <img src={logo} className="img-responsive" alt="Cinque Terre" />
-                        </center>
+                        {showingLogo ?
+                            <center>
+                                <img src={logo} className="img-responsive" alt="Cinque Terre" />
+                            </center>
+                            : ''}
 
                     </div>
 
                     <div className="bottom-container">
-                        <LoginContent />
+                        {this.props.children}
                     </div>
 
                 </div>

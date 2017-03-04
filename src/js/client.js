@@ -4,6 +4,8 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import EmailSignup from '../components/EmailSignup'
+import EmailLogin from '../components/EmailLogin'
+import LoginSetup from '../components/LoginSetup'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import 'bootstrap/dist/css/bootstrap.css'
 import '../css/app.css'
@@ -27,8 +29,9 @@ ReactDOM.render(
 
     <Router history={hashHistory}>
         <Route path="/" component={Login}>
-            <IndexRoute component={Home}></IndexRoute>
+            <IndexRoute component={LoginSetup}></IndexRoute>
             <Route path="emailSignup" component={EmailSignup}></Route>
+            <Route path="emailLogin" component={EmailLogin}></Route>
         </Route>
     </Router>,
     app);

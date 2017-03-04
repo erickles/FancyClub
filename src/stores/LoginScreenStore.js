@@ -6,11 +6,16 @@ export class LoginScreenStore {
     @observable signingUp
     @observable emailSigningUp
     @observable logged
+    @observable showingLogo = true
     @observable emailInput = ""
     @observable passwordInput = ""
     @observable repeatPasswordInput = ""
     @observable nameInput = ""
     @observable sureNameInput = ""
+
+    setShowLogo(value){
+        this.showingLogo = value
+    }
 
     handleEmailInput(value) {
         this.emailInput = value
