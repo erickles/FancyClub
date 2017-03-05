@@ -6,6 +6,7 @@ import FontIcon from 'material-ui/FontIcon'
 import store from '../stores/LoginScreenStore'
 import { observer } from 'mobx-react'
 import { Link } from 'react-router';
+import logo from '../images/club_m.jpg'
 
 @observer
 class LoginSetup extends Component {
@@ -14,7 +15,7 @@ class LoginSetup extends Component {
         store.toogleLogged();
     }
 
-    componentDidMount(){
+    componentDidMount() {
         store.setShowLogo(true)
     }
 
@@ -34,12 +35,26 @@ class LoginSetup extends Component {
                 width: '100%',
                 opacity: 0,
             }
-        };        
+        };
+
+        const { logged, showingLogo } = store
 
         return (
 
             <div>
+
                 <div>
+
+                    {showingLogo ?
+                        <center>
+                            <img src={logo} className="img-responsive" alt="Cinque Terre" />
+                        </center>
+                        : ''}
+
+                </div>
+
+                <div>
+
                     <div className="spacing-container">
                         <div className="button-container">
                             <RaisedButton
@@ -61,11 +76,12 @@ class LoginSetup extends Component {
                                     target="_blank"
                                     fullWidth={true}
                                     label="Entre com seu e-mail"
-                                    style={styles.button}                                    
+                                    style={styles.button}
                                     icon={<FontIcon className="muidocs-icon-custom-github" />} />
                             </Link>
                         </div>
                     </div>
+
                 </div>
 
             </div>

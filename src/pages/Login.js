@@ -44,37 +44,28 @@ class Login extends Component {
             },
         };
 
-        const { emailLogging, logged, showingLogo } = store
+        const { logged, showingLogo } = store
 
         return (
 
             <MuiThemeProvider>
+
                 <div>
 
-                    <div className="top-container">
+                    {logged ?
+                        <Drawer open={this.state.open} docked={false} onRequestChange={(open) => this.setState({ open })}>
+                            <MenuItem onTouchTap={this.handleClose}>Início</MenuItem>
+                            <MenuItem onTouchTap={this.handleClose}>Perfil</MenuItem>
+                            <MenuItem onTouchTap={this.handleClose}>Configurações</MenuItem>
+                            <MenuItem onTouchTap={this.handleClose}>Sair</MenuItem>
+                        </Drawer>
+                        : ''}
 
-                        {logged ?
-                            <Drawer open={this.state.open} docked={false} onRequestChange={(open) => this.setState({ open })}>
-                                <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-                                <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
-                            </Drawer>
-                            : ''}
+                    {logged ?
+                        <AppBar title="Fancy Club" onLeftIconButtonTouchTap={this.handleTouchTap} iconClassNameRight="muidocs-icon-navigation-expand-more" />
+                        : ''}
 
-                        {logged ?
-                            <AppBar title="Fancy Club" onLeftIconButtonTouchTap={this.handleTouchTap} iconClassNameRight="muidocs-icon-navigation-expand-more" />
-                            : ''}
-
-                        {showingLogo ?
-                            <center>
-                                <img src={logo} className="img-responsive" alt="Cinque Terre" />
-                            </center>
-                            : ''}
-
-                    </div>
-
-                    <div className="bottom-container">
-                        {this.props.children}
-                    </div>
+                    {this.props.children}
 
                 </div>
             </MuiThemeProvider>

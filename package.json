@@ -17,7 +17,9 @@
     "mobx": "^3.1.0",
     "mobx-react": "^4.1.0",
     "react": "^15.4.2",
+    "react-avatar": "^2.3.0",
     "react-dom": "^15.4.0",
+    "react-dropzone": "^3.11.0",
     "react-router": "^3.0.2",
     "react-sidebar": "^2.2.1",
     "react-tap-event-plugin": "^2.0.1",
@@ -26,6 +28,7 @@
     "redux-promise-middleware": "^4.2.0",
     "redux-thunk": "^2.2.0",
     "simple-react-modal": "^0.5.1",
+    "superagent": "^3.5.0",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.14.1"
   },
