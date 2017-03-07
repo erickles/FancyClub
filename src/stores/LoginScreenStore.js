@@ -12,8 +12,11 @@ export class LoginScreenStore {
     @observable repeatPasswordInput = ""
     @observable nameInput = ""
     @observable sureNameInput = ""
+    @observable nameError = ""
+    @observable surenameError = ""
     @observable emailError = ""
     @observable passwordError = ""
+    @observable repeatPasswordError = ""   
 
     setShowLogo(value){
         this.showingLogo = value
@@ -21,6 +24,10 @@ export class LoginScreenStore {
 
     handleEmailInput(value) {
         this.emailInput = value
+    }
+
+    setNameError(value) {
+        this.nameError = value        
     }
 
     setEmailError(value) {
@@ -39,8 +46,16 @@ export class LoginScreenStore {
         this.nameInput = value
     }
 
+    setNameError(value) {
+        this.nameError = value
+    }
+
     handleSureNameInput(value) {
         this.sureNameInput = value
+    }
+
+    setSurenameError(value) {
+        this.surenameError = value
     }
 
     handleRepeatPasswordInput(value) {

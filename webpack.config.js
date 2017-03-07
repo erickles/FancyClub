@@ -46,6 +46,6 @@ module.exports = {
     contentBase: path.join(__dirname, "src"),
     inline: true,
     compress: true,
-    port: 9000
+    port: 8080
   }
 };

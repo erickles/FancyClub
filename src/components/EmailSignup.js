@@ -21,20 +21,34 @@ class EmailSignup extends Component {
         this.state = {
             open: false,
             message: "",
-            title: ""
+            title: "",
+            hasSignupErrors: false
         };
 
     }
 
+    handleNameInput(e) {
+        store.setNameError('')
+        store.handleNameInput(e.target.value)
+    }
+
+    handleSurenameInput(e) {
+        store.setSurenameError('')
+        store.handleSurenameInput(e.target.value)
+    }
+
     handleEmailInput(e) {
+        store.setEmailError('')
         store.handleEmailInput(e.target.value)
     }
 
     handlePasswordInput(e) {
+        store.setPasswordError('')
         store.handlePasswordInput(e.target.value)
     }
 
     handleRepeatPasswordInput(e) {
+        store.setRepeatPasswordError('')
         store.handleRepeatPasswordInput(e.target.value)
     }
 
@@ -43,27 +57,31 @@ class EmailSignup extends Component {
     }
 
     handleDialogMessage(errorCode, erroMessage) {
-
+        
         switch (errorCode) {
 
             case 'auth/user-not-found':
-                this.setState({ title: 'E-mail não cadastrado', message: 'Você ainda não tem cadastro com este e-mail, faça seu cadastro!' });
+                this.setState({ title: 'E-mail não cadastrado', message: 'Você ainda não tem cadastro com este e-mail, faça seu cadastro!', hasSignupErrors: true })
+                store.setEmailError(this.state.title)
                 break;
 
             case 'auth/invalid-email':
-                this.setState({ title: 'E-mail inválido', message: 'Informe um e-mail válido!' });
+                this.setState({ title: 'E-mail inválido', message: 'Informe um e-mail válido!', hasSignupErrors: true })
+                store.setEmailError(this.state.title)
                 break;
 
             case 'auth/weak-password':
-                this.setState({ title: 'Senha inválida', message: 'Informe uma senha com pelo menos 6 caracteres' });
+                this.setState({ title: 'Senha inválida', message: 'Informe uma senha com pelo menos 6 caracteres', hasSignupErrors: true })
+                store.setPasswordError(this.state.title)
                 break;
 
             case 'auth/email-already-in-use':
-                this.setState({ title: 'E-mail inválido', message: 'Este e-mail já esta sendo utilizaso por outra conta!' });
+                this.setState({ title: 'E-mail inválido', message: 'Este e-mail já esta sendo utilizaso por outra conta!', hasSignupErrors: true });
+                store.setEmailError(this.state.title)
                 break;
 
             default:
-                this.setState({ title: errorCode, message: erroMessage });
+                this.setState({ title: errorCode, message: erroMessage, hasSignupErrors: true });
                 break;
 
         }
@@ -82,16 +100,18 @@ class EmailSignup extends Component {
 
         const { emailInput, passwordInput, repeatPasswordInput, nameInput, sureNameInput } = store
 
-        const openDialog = (errorCode, errorMessage) => {
-            this.handleDialogMessage(errorCode, errorMessage)
-            this.handleOpen();
+        const setDialogMessage = (errorCode, errorMessage) => {
+            this.handleDialogMessage(errorCode, errorMessage)            
+        }
+        const openDialog = () => {            
+            this.handleOpen();            
         }
 
         firebase.auth()
             .createUserWithEmailAndPassword(emailInput, passwordInput)
             .then(() => {
-                
-                const user = firebase.auth().currentUser;                
+
+                const user = firebase.auth().currentUser;
 
                 // A user entry.
                 var userData = {
@@ -102,16 +122,17 @@ class EmailSignup extends Component {
                 };
 
                 // Get a key for a new User.
-                var newUserKey = firebase.database().ref().child('users').push().key;                
+                var newUserKey = firebase.database().ref().child('users').push().key;
 
                 // Write the new post's data simultaneously in the posts list and the user's post list.
                 var updates = {};
-                updates['/users/' + newUserKey] = userData;                           
+                updates['/users/' + newUserKey] = userData;
 
                 // Do both in parallel while being able to capture errors in promise
                 return Promise.all([
                     user.sendEmailVerification(),
-                    openDialog('Verifique seu e-mail!', 'Foi enviado um e-mail para ' + emailInput + ' para que sua conta seja confirmada.'), 
+                    setDialogMessage('Verifique seu e-mail!', 'Foi enviado um e-mail para ' + emailInput + ' para que sua conta seja confirmada.'),
+                    openDialog(),
                     user.updateProfile({ nameInput })
                 ])
             })
@@ -120,30 +141,63 @@ class EmailSignup extends Component {
                 var errorMessage = error.message;
 
                 openDialog(errorCode, errorMessage)
-                
+
             });
 
     }
 
     handleNameInput(e) {
+        store.setNameError("")
         store.handleNameInput(e.target.value)
     }
 
     handleSurenameInput(e) {
+        store.setSurenameError('')
         store.handleSureNameInput(e.target.value)
     }
 
     handleEmailInput(e) {
+        store.setEmailError('')
         store.handleEmailInput(e.target.value)
     }
 
     handlePasswordInput(e) {
+        store.setPasswordError('')
         store.handlePasswordInput(e.target.value)
+    }
+
+    fetchSignup() {
+
+        const openDialog = (errorCode, errorMessage) => {
+            this.handleDialogMessage(errorCode, errorMessage)
+            this.handleOpen();
+        }
+
+        const { nameInput, sureNameInput, emailInput, passwordInput, repeatPasswordInput } = store
+
+        this.setState({ hasSignupErrors: false })
+
+        if (nameInput.length === 0) {
+            //openDialog('Nome não informado','Informe seu nome!')
+            store.setNameError('Nome não informado')
+            this.setState({ hasSignupErrors: true })            
+        }
+
+        if (sureNameInput.length === 0) {
+            //openDialog('Sobrenome não informado','Informe seu sobrenome!')
+            store.setSurenameError('Sobrenome não informado')
+            this.setState({ hasSignupErrors: true })            
+        }
+
+        if (!this.state.hasSignupErrors) {
+            this.createUser()
+        }
+
     }
 
     render() {
 
-        const { nameInput, sureNameInput, emailInput, passwordInput, repeatPasswordInput } = store
+        const { nameInput, sureNameInput, emailInput, passwordInput, repeatPasswordInput, nameError, surenameError, emailError, passwordError, repeatPasswordError } = store
 
         const actions = [
             <FlatButton
@@ -160,38 +214,70 @@ class EmailSignup extends Component {
 
                 <div className="spacing-container">
                     <div className="button-container">
-                        <TextField onChange={this.handleNameInput.bind(this)} value={nameInput} id="userName" hintText="Informe seu nome" floatingLabelText="Nome" type="text" fullWidth={true} />
+                        <TextField  onChange={this.handleNameInput.bind(this)} 
+                                    value={nameInput} id="userName" 
+                                    hintText="Informe seu nome" 
+                                    floatingLabelText="Nome" 
+                                    type="text"
+                                    errorText={nameError}
+                                    fullWidth={true} />
                     </div>
                 </div>
 
                 <div className="spacing-container">
                     <div className="button-container">
-                        <TextField onChange={this.handleSurenameInput.bind(this)} value={sureNameInput} id="userSureName" hintText="Informe seu sobrenome" floatingLabelText="Sobrenome" type="text" fullWidth={true} />
+                        <TextField  onChange={this.handleSurenameInput.bind(this)} 
+                                    value={sureNameInput} id="userSureName" 
+                                    hintText="Informe seu sobrenome" 
+                                    floatingLabelText="Sobrenome" 
+                                    type="text"
+                                    errorText={surenameError}
+                                    fullWidth={true} />
                     </div>
                 </div>
 
                 <div className="spacing-container">
                     <div className="button-container">
-                        <TextField onChange={this.handleEmailInput.bind(this)} value={emailInput} id="userEmail" hintText="Informe seu e-mail" floatingLabelText="E-mail" type="email" fullWidth={true} />
+                        <TextField  onChange={this.handleEmailInput.bind(this)} 
+                                    value={emailInput} 
+                                    id="userEmail" 
+                                    hintText="Informe seu e-mail" 
+                                    floatingLabelText="E-mail" 
+                                    type="email"
+                                    errorText={emailError}
+                                    fullWidth={true} />
                     </div>
                 </div>
 
                 <div className="spacing-container">
                     <div className="button-container">
-                        <TextField onChange={this.handlePasswordInput.bind(this)} value={passwordInput} id="userPassword" hintText="Informe sua senha" floatingLabelText="Senha" type="password" fullWidth={true} />
+                        <TextField  onChange={this.handlePasswordInput.bind(this)} 
+                                    value={passwordInput} 
+                                    id="userPassword" 
+                                    hintText="Informe sua senha" 
+                                    floatingLabelText="Senha" 
+                                    type="password" 
+                                    errorText={passwordError}
+                                    fullWidth={true} />
                     </div>
                 </div>
 
                 <div className="spacing-container">
                     <div className="button-container">
-                        <TextField value={repeatPasswordInput} id="userRepeatPassword" hintText="Repita sua senha" floatingLabelText="Repita sua senha" type="password" fullWidth={true} />
+                        <TextField  value={repeatPasswordInput} 
+                                    id="userRepeatPassword" 
+                                    hintText="Repita sua senha" 
+                                    floatingLabelText="Repita sua senha" 
+                                    type="password" 
+                                    errorText={repeatPasswordError}
+                                    fullWidth={true} />
                     </div>
                 </div>
 
                 <div className="spacing-container">
                     <div className="button-container">
                         <RaisedButton
-                            onClick={this.createUser.bind(this)}
+                            onClick={this.fetchSignup.bind(this)}
                             target="_blank"
                             fullWidth={true}
                             label="Cadastrar"
